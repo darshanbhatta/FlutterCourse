@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_course/pages/auth.dart';
 import 'package:flutter_course/pages/home.dart';
 import 'package:flutter_course/pages/manage.dart';
 import 'package:flutter_course/pages/product.dart';
@@ -45,13 +46,13 @@ class _MyAppState extends State<MyApp>{
   Widget build(BuildContext context) {
     // TODO: implement build
     return MaterialApp(theme: ThemeData(primarySwatch: Colors.deepOrange),
-        //home: AuthPage(),
+        home: AuthPage(_products),
         routes: {
           '/admin': ((context) {
-            return ManageProduct();
+            return ManageProduct(_addProduct,_deleteProduct);
           }),
-          '/': (context) {
-            return HomePage(_addProduct,_deleteProduct,_products);
+          '/home': (context) {
+            return HomePage(_products);
           }
         }, onGenerateRoute: (RouteSettings settings) {
           final List<String> pathElements = settings.name.split('/');
@@ -72,7 +73,7 @@ class _MyAppState extends State<MyApp>{
           return null;
         },
       onUnknownRoute: (RouteSettings settings){
-        return MaterialPageRoute(builder: (BuildContext context){ return HomePage(_addProduct,_deleteProduct,_products);});
+        return MaterialPageRoute(builder: (BuildContext context){ return HomePage(_products);});
       },
     );}
 }

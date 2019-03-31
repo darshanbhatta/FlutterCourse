@@ -4,6 +4,12 @@ import 'package:flutter_course/pages/product_create.dart';
 import 'package:flutter_course/pages/product_list.dart';
 
 class ManageProduct extends StatelessWidget {
+
+  Function addProduct;
+  Function deleteProduct;
+
+  ManageProduct(this.addProduct,this.deleteProduct);
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -15,7 +21,7 @@ class ManageProduct extends StatelessWidget {
             ListTile(
               title: Text('All Products'),
               onTap: () {
-               Navigator.pushReplacementNamed(context, '/');
+               Navigator.pushReplacementNamed(context, '/home');
               },
             )
           ],
@@ -27,7 +33,7 @@ class ManageProduct extends StatelessWidget {
             Tab(text: 'Create Product', icon: Icon(Icons.create),), Tab(text: 'My Products',icon: Icon(Icons.list),)],)
       ),
       body: TabBarView(children: <Widget>[
-        ProductCreatePage(),ProductListPage()
+        ProductCreatePage(addProduct,deleteProduct),ProductListPage()
       ]),));
   }
 }
