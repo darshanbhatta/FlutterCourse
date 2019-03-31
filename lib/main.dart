@@ -1,28 +1,78 @@
 import 'package:flutter/material.dart';
-
-import './product_manager.dart';
+import 'package:flutter_course/pages/home.dart';
+import 'package:flutter_course/pages/manage.dart';
+import 'package:flutter_course/pages/product.dart';
 
 main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+
+
+
+
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _MyAppState();
+  }
+}
+
+class _MyAppState extends State<MyApp>{
+  List<Map> _products = [];
+
+  void _addProduct(Map product) {
+    setState(() {
+      _products.add(product);
+    });
+  }
+
+  void _deleteProduct(int index) {
+    setState(() {
+      _products.removeAt(index);
+    });
+  }
+
+
+
+
+
 
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return MaterialApp(
-      theme: ThemeData(primarySwatch: Colors.deepOrange),
-      home: Scaffold(
-          appBar: AppBar(
-            title: Text('EasyList'),
-          ),
-          body:
-            ProductManager()
-          ),
-    );;
-  }
+    return MaterialApp(theme: ThemeData(primarySwatch: Colors.deepOrange),
+        //home: AuthPage(),
+        routes: {
+          '/admin': ((context) {
+            return ManageProduct();
+          }),
+          '/': (context) {
+            return HomePage(_addProduct,_deleteProduct,_products);
+          }
+        }, onGenerateRoute: (RouteSettings settings) {
+          final List<String> pathElements = settings.name.split('/');
+          print(pathElements);
+          if(pathElements[0] != ''){
+            return null;
+          }
+          if(pathElements[1]== 'product'){
+            final int index = int.parse(pathElements[2]);
+            print(index);
+            return MaterialPageRoute<bool>(builder: (BuildContext context) {
+              return ProductPage(
+                  _products[index]['title'], _products[index]['image']);
+            });
+
+
+          }
+          return null;
+        },
+      onUnknownRoute: (RouteSettings settings){
+        return MaterialPageRoute(builder: (BuildContext context){ return HomePage(_addProduct,_deleteProduct,_products);});
+      },
+    );}
 }
-
-
