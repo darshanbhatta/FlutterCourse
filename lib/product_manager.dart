@@ -7,10 +7,9 @@ import './product_control.dart';
 class ProductManager extends StatelessWidget{
 
   final List<Map> products;
-  final Function addProduct;
-  final Function deleteProduct;
 
-  ProductManager(this.products,this.addProduct,this.deleteProduct);
+
+  ProductManager(this.products);
 
 
 
@@ -19,10 +18,10 @@ class ProductManager extends StatelessWidget{
     // TODO: implement build
     return Column(children: <Widget>[
       Container(
-        child: ProductControl(addProduct),
+        child: ProductControl(),
         margin: EdgeInsets.all(10.0),
       ),
-      Expanded(child: Products(products,deleteProduct))
+      Expanded(child: Products(products))
     ],);
   }
 
