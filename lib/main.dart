@@ -38,7 +38,11 @@ class _MyAppState extends State<MyApp>{
 
 
 
-
+  void _updateProduct(int index,Map product) {
+    setState(() {
+      _products[index] = product;
+    });
+  }
 
 
 
@@ -49,7 +53,7 @@ class _MyAppState extends State<MyApp>{
         home: AuthPage(_products),
         routes: {
           '/admin': ((context) {
-            return ManageProduct(_addProduct,_deleteProduct);
+            return ManageProduct(_addProduct,_deleteProduct, _products,_updateProduct);
           }),
           '/home': (context) {
             return HomePage(_products);
@@ -65,7 +69,7 @@ class _MyAppState extends State<MyApp>{
             print(index);
             return MaterialPageRoute<bool>(builder: (BuildContext context) {
               return ProductPage(
-                  _products[index]['title'], _products[index]['image']);
+                  _products[index]['title'], _products[index]['image'],_products[index]['price'],_products[index]['desc']);
             });
 
 

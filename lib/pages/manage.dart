@@ -7,8 +7,10 @@ class ManageProduct extends StatelessWidget {
 
   Function addProduct;
   Function deleteProduct;
+  List products;
+  Function updateProduct;
 
-  ManageProduct(this.addProduct,this.deleteProduct);
+  ManageProduct(this.addProduct,this.deleteProduct,this.products,this.updateProduct);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,7 @@ class ManageProduct extends StatelessWidget {
             Tab(text: 'Create Product', icon: Icon(Icons.create),), Tab(text: 'My Products',icon: Icon(Icons.list),)],)
       ),
       body: TabBarView(children: <Widget>[
-        ProductCreatePage(addProduct,deleteProduct),ProductListPage()
+        ProductCreatePage(addProduct,deleteProduct),ProductListPage(addProduct,deleteProduct,products,updateProduct)
       ]),));
   }
 }
